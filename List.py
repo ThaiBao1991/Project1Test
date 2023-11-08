@@ -196,3 +196,159 @@ print(newlist)
 
 #****************************** Sort Lists
 print("****************************** Sort Lists")
+
+# Sort List Alphanumerically
+thislist = ["orange", "mango", "kiwi", "pineapple", "banana"]
+thislist.sort()
+print(thislist)
+
+thislist = [100, 50, 65, 82, 23]
+thislist.sort()
+print(thislist)
+
+# Sort Descending
+
+thislist = ["orange", "mango", "kiwi", "pineapple", "banana"]
+thislist.sort(reverse = True)
+print(thislist)
+
+thislist = [100, 50, 65, 82, 23]
+thislist.sort(reverse = True)
+print(thislist)
+
+# Customize Sort Function
+def myfunc(n):
+  return abs(n - 50)
+thislist = [100, 50, 65, 82, 23]
+thislist.sort(key = myfunc)
+print(thislist)
+
+# Case Insensitive Sort
+thislist = ["banana", "Orange", "Kiwi", "cherry"]
+thislist.sort()
+print(thislist)
+
+thislist = ["banana", "Orange", "Kiwi", "cherry"]
+thislist.sort(key = str.lower)
+print(thislist)
+
+# Reverse Order
+thislist = ["banana", "Orange", "Kiwi", "cherry"]
+thislist.reverse()
+print(thislist)
+
+#****************************** Copy Lists
+print("****************************** Copy Lists")
+# Copy a List
+thislist = ["apple", "banana", "cherry"]
+mylist = thislist.copy()
+print(mylist)
+
+thislist = ["apple", "banana", "cherry"]
+mylist = list(thislist)
+print(mylist)
+
+#****************************** Join Lists
+print("****************************** Join Lists")
+# Join Two Lists
+list1 = ["a", "b", "c"]
+list2 = [1, 2, 3]
+list3 = list1 + list2
+print(list3)
+
+list1 = ["a", "b" , "c"]
+list2 = [1, 2, 3]
+for x in list2:
+  list1.append(x)
+print(list1)
+
+list1 = ["a", "b" , "c"]
+list2 = [1, 2, 3]
+list1.extend(list2)
+print(list1)
+
+#****************************** List Methods
+print("****************************** List Methods")
+# append()
+a = ["apple", "banana", "cherry"]
+b = ["Ford", "BMW", "Volvo"]
+a.append(b)
+print(a)
+
+# clear()
+fruits = ["apple", "banana", "cherry"]
+fruits.clear()
+print(fruits)
+
+# copy()
+fruits = ["apple", "banana", "cherry"]
+x = fruits.copy()
+print(x)
+
+# count()
+fruits = ["apple", "banana", "cherry"]
+x = fruits.count("cherry")
+print(x)
+
+# extend()
+fruits = ['apple', 'banana', 'cherry']
+cars = ['Ford', 'BMW', 'Volvo']
+fruits.extend(cars)
+print(fruits)
+
+# index()
+fruits = ['apple', 'banana', 'cherry']
+x = fruits.index("cherry")
+print(x)
+
+# insert()
+fruits = ['apple', 'banana', 'cherry']
+fruits.insert(1, "orange")
+print(fruits)
+
+# pop()
+fruits = ['apple', 'banana', 'cherry']
+fruits.pop(1)
+print(fruits)
+
+# remove()
+fruits = ['apple', 'banana', 'cherry']
+fruits.remove("banana")
+print(fruits)
+# reverse()
+fruits = ['apple', 'banana', 'cherry']
+fruits.reverse()
+print(fruits)
+
+# - sort()
+cars = ['Ford', 'BMW', 'Volvo']
+cars.sort()
+print(cars)
+
+cars = ['Ford', 'BMW', 'Volvo']
+cars.sort(reverse=True)
+print(cars)
+
+# A function that returns the length of the value:
+def myFunc(e):
+  return len(e)
+cars = ['Ford', 'Mitsubishi', 'BMW', 'VW']
+cars.sort(key=myFunc)
+print(cars)
+
+# A function that returns the 'year' value:
+def myFunc(e):
+  return e['year']
+cars = [
+  {'car': 'Ford', 'year': 2005},
+  {'car': 'Mitsubishi', 'year': 2000},
+  {'car': 'BMW', 'year': 2019},
+  {'car': 'VW', 'year': 2011}
+]
+cars.sort(key=myFunc)
+
+# A function that returns the length of the value:
+def myFunc(e):
+  return len(e)
+cars = ['Ford', 'Mitsubishi', 'BMW', 'VW']
+cars.sort(reverse=True, key=myFunc)
