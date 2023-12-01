@@ -7,14 +7,15 @@ import feedparser
 def updatepython(request):
     #-------python----------------
     url = feedparser.parse(
-            "https://medium.com/feed/tag/python"
+            "https://medium0.com/feed/tag/python"
         )
+    info = url.channel
     for i in range(10):
-        info = url.entries[i]
+        data= info.item[i]
         content= PyContent()
-        content.headline= info.title
+        content.headline= data.title
         #-----finding image link
-        desc = info.description
+        desc = data.description
         start=desc.find("img src=")
         end=desc.find("width")
         
@@ -25,7 +26,7 @@ def updatepython(request):
  
         #---------------
         content.img = desc
-        content.url  = info.link
+        content.url  = data.link
         content.save()
     
     return redirect('/')
@@ -33,7 +34,7 @@ def updatepython(request):
 def updatecovid(request):
     #-------python----------------
     url = feedparser.parse(
-            "https://medium.com/feed/tag/covid"
+            "https://medium0.com/feed/tag/covid"
         )
     for i in range(10):
         info = url.entries[i]
@@ -61,7 +62,7 @@ def updatecovid(request):
 def updateprog(request):
     #-------python----------------
     url = feedparser.parse(
-            "https://medium.com/feed/tag/programming"
+            "https://medium0.com/feed/tag/programming"
         )
     for i in range(10):
         info = url.entries[i]
@@ -87,7 +88,7 @@ def updateprog(request):
 def updatehiring(request):
     #-------python----------------
     url = feedparser.parse(
-            "https://medium.com/feed/tag/hiring"
+            "https://medium0.com/feed/tag/hiring"
         )
     for i in range(10):
         info = url.entries[i]
