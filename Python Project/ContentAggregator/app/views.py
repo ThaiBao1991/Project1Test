@@ -6,16 +6,29 @@ import feedparser
 # Create your views here.
 def updatepython(request):
     #-------python----------------
+    PyContent.objects.all().delete() # xóa toàn bộ dữ liệu trong table PyContent
     url = feedparser.parse(
             "https://medium0.com/feed/tag/python"
         )
-    info = url.channel
-    for i in range(10):
-        data= info.item[i]
+    # print(url) # Lấy dữ liệu của url
+    data = url.entries
+    # print(data)
+    numberCourse = len(data)
+    # print (numberCourse)
+    if numberCourse >10 :
+        numberCourse =10
+    else:
+        print("Số lượng nhỏ hơn 10")
+    # print (info[0])
+    
+    for i in range(numberCourse):
+        info = data[i]
         content= PyContent()
-        content.headline= data.title
+        content.headline= info.title
+        print("################################")
+        print(content.headline)
         #-----finding image link
-        desc = data.description
+        desc = info.description
         start=desc.find("img src=")
         end=desc.find("width")
         
@@ -26,18 +39,26 @@ def updatepython(request):
  
         #---------------
         content.img = desc
-        content.url  = data.link
+        content.url  = info.link
         content.save()
     
     return redirect('/')
  
 def updatecovid(request):
     #-------python----------------
+    covidcontent = CovidContent.objects.all().delete()
     url = feedparser.parse(
             "https://medium0.com/feed/tag/covid"
         )
-    for i in range(10):
-        info = url.entries[i]
+    data = url.entries
+    numberCourse = len(data)
+    # print (numberCourse)
+    if numberCourse >10 :
+        numberCourse =10
+    else:
+        print("Số lượng nhỏ hơn 10")
+    for i in range(numberCourse -1):
+        info = data[i]
         content= CovidContent()
         content.headline= info.title
         print("################################")
@@ -61,11 +82,19 @@ def updatecovid(request):
  
 def updateprog(request):
     #-------python----------------
+    progcontent = ProgContent.objects.all().delete()
     url = feedparser.parse(
             "https://medium0.com/feed/tag/programming"
         )
-    for i in range(10):
-        info = url.entries[i]
+    data = url.entries
+    numberCourse = len(data)
+    # print (numberCourse)
+    if numberCourse >10 :
+        numberCourse =10
+    else:
+        print("Số lượng nhỏ hơn 10")
+    for i in range(numberCourse -1):
+        info = data[i]
         content= ProgContent()
         content.headline= info.title
         #-----finding image link
@@ -87,11 +116,19 @@ def updateprog(request):
  
 def updatehiring(request):
     #-------python----------------
+    hiringcontent = HiringContent.objects.all().delete()
     url = feedparser.parse(
             "https://medium0.com/feed/tag/hiring"
         )
-    for i in range(10):
-        info = url.entries[i]
+    data = url.entries
+    numberCourse = len(data)
+    # print (numberCourse)
+    if numberCourse >10 :
+        numberCourse =10
+    else:
+        print("Số lượng nhỏ hơn 10")
+    for i in range(numberCourse -1 ):
+        info = data[i]
         content= HiringContent()
         content.headline= info.title
         #-----finding image link
