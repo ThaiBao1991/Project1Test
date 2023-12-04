@@ -6,4 +6,4 @@ class blogForm(ModelForm):
     class Meta:
         model=Blogs
         fields='__all__'
-        # exclude=['likes','date']    
+        exclude=['likes','date']    # Ẩn đi trường likes và date 

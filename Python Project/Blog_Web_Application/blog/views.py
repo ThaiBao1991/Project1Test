@@ -12,7 +12,7 @@ def home(request):
     return render(request,'home.html',context)
 
 def addBlog(request):
-    form=blogForm()
+    form=blogForm() #Gán biến form cho blogForm() có tên trong forms.py
     if request.method=='POST':
         form=blogForm(request.POST,request.FILES)
         if form.is_valid():
