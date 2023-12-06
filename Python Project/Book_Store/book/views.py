@@ -8,10 +8,12 @@ from .forms import *
 def home(request):
     books=Book.objects.all()
     context={'books':books}
-    if request.user.is_staff:
-        return render(request,'book/adminhome.html',context)
-    else:    
-        return render(request,'book/home.html',context)
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return render(request,'book/adminhome.html',context)
+        else:
+            return render(request,'book/home.html',context)        
+    return render(request,'book/home.html',context)    
 
 def logoutPage(request):
     logout(request)
@@ -62,17 +64,20 @@ def addbook(request):
     return render(request,'book/addbook.html',context)
 
 def viewcart(request):
-    cust=Customer.objects.filter(user=request.user)
-    for c in cust:
-        carts=Cart.objects.all()
-        for cart in carts:
-            if(cart.customer==c):
-                context={
-                    'cart':cart
-                }
-                return render(request,'book/viewcart.html',context)  
-        else:
-            return render(request,'book/emptycart.html') 
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        cust=Customer.objects.filter(user=request.user)
+        for c in cust:
+            carts=Cart.objects.all()
+            for cart in carts:
+                if(cart.customer==c):
+                    context={
+                        'cart':cart
+                    }
+                    return render(request,'book/viewcart.html',context)  
+            else:
+                return render(request,'book/emptycart.html') 
             
 def addtocart(request,pk):
     book=Book.objects.get(id=pk)

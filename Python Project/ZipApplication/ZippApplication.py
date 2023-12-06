@@ -2,24 +2,27 @@ import os
 import pyzipper
 import tkinter as tk
 from tkinter import filedialog, messagebox
- 
+
 def compress_file(file_path, password=None):
-    zip_file_path = file_path + '.zip'
-    
-    with pyzipper.AESZipFile(zip_file_path, 'w', compression=pyzipper.ZIP_LZMA ,encryption=pyzipper.WZ_AES) as zip_file:
+    zip_file_name = os.path.basename(file_path)  # Lấy tên thư mục hoặc tên file
+    zip_file_path = zip_file_name + '.zip'
+
+    with pyzipper.AESZipFile(zip_file_path, 'w', compression=pyzipper.ZIP_LZMA, encryption=None) as zip_file:
         if password:
-            print("run")
             zip_file.setpassword(password.encode())
-            print("check1")
-        
+
         if os.path.isfile(file_path):
             zip_file.write(file_path, os.path.basename(file_path))
         else:
             for folder_name, subfolders, filenames in os.walk(file_path):
                 for filename in filenames:
                     file_path = os.path.join(folder_name, filename)
-                    zip_file.write(file_path, os.path.relpath(file_path, file_path))
-    
+                    if os.path.exists(file_path):
+                        arcname = os.path.relpath(file_path, file_path)
+                        zip_file.write(file_path, arcname)
+                        if password:
+                            zip_file.setpassword(password.encode())
+
     return zip_file_path
  
 def decompress_file(zip_file_path, password=None):
@@ -29,7 +32,10 @@ def decompress_file(zip_file_path, password=None):
         if password:
             zip_file.setpassword(password.encode())
         
-        zip_file.extractall(file_path)
+        for zip_info in zip_file.infolist():
+            if password:
+                zip_file.setpassword(password.encode())
+            zip_file.extract(zip_info, file_path, pwd=zip_file.getpassword())
     
     return file_path
  
@@ -52,7 +58,9 @@ def compress():
         return
     
     try:
+        print("check2")
         zip_file_path = compress_file(file_path, password)
+        print("check1")
         messagebox.showinfo("Thành công", f"File zip đã được tạo:\n{zip_file_path}")
     except Exception as e:
         messagebox.showerror("Lỗi", f"Lỗi khi nén file: {str(e)}")
@@ -67,6 +75,7 @@ def decompress():
     
     try:
         decompressed_file_path = decompress_file(zip_file_path, password)
+
         messagebox.showinfo("Thành công", f"File đã được giải nén:\n{decompressed_file_path}")
     except Exception as e:
         messagebox.showerror("Lỗi", f"Lỗi khi giải nén file: {str(e)}")
