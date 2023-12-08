@@ -12,7 +12,7 @@ class Book(models.Model):
         return str(self.title)
  
 class Customer(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE) # Liên kết 1-1 với User khóa ngoại
     name=models.CharField(max_length=200,null=True)
     phone=models.CharField(max_length=200,null=True)
     email=models.CharField(max_length=200,null=True)
@@ -22,8 +22,8 @@ class Customer(models.Model):
         return str(self.name)
  
 class Cart(models.Model): 
-    customer=models.OneToOneField(Customer, null=True, on_delete=models.CASCADE) 
-    books=models.ManyToManyField(Book) 
+    customer=models.OneToOneField(Customer, null=True, on_delete=models.CASCADE) # Liên kết 1-1 Tới bảng customer khóa ngoại
+    books=models.ManyToManyField(Book) # Liên kết Many-Many tới trường book, khóa ngoại
  
     def __str__(self):
         return str(self.customer)

@@ -8,20 +8,20 @@ from .forms import *
 def home(request):
     books=Book.objects.all()
     context={'books':books}
-    if request.user.is_authenticated:
-        if request.user.is_staff:
-            return render(request,'book/adminhome.html',context)
+    if request.user.is_authenticated: #Check nếu user đã được đăng ký
+        if request.user.is_staff: #Check nếu user là một staff
+            return render(request,'book/adminhome.html',context) 
         else:
             return render(request,'book/home.html',context)        
-    return render(request,'book/home.html',context)    
+    return render(request,'book/home.html',context)
 
 def logoutPage(request):
     logout(request)
     return redirect('/')
 
 def loginPage(request):
-    if request.user.is_authenticated:
-        return redirect('home')
+    if request.user.is_authenticated: # Nếu user đã đăng ký
+        return render(request,'book/home.html') #quay lại trang home phai su dung render thay vi redirect do co su dung cookies {% csrf_token %}
     else:
        if request.method=="POST":
         username=request.POST.get('username')
@@ -35,7 +35,7 @@ def loginPage(request):
        return render(request,'book/login.html',context)
 
 def registerPage(request):
-    form=createuserform()
+    form=createuserform() #Tạo mẫu form từ createuserform
     cust_form=createcustomerform()
     if request.method=='POST':
         form=createuserform(request.POST)
@@ -84,7 +84,7 @@ def addtocart(request,pk):
     cust=Customer.objects.filter(user=request.user)
     
     for c in cust:       
-        carts=Cart.objects.all()
+        carts=Cart.objects.all() 
         reqcart=''
         for cart in carts:
             if(cart.customer==c):
