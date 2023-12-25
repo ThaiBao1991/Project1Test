@@ -16,7 +16,7 @@ def encrypt_pdf(input_file, output_file):
             pdf_writer.addPage(page)
 
         # Mã hóa file PDF đã đọc
-        encrypted_pdf = pdf_writer.encrypt('password')
+        encrypted_pdf = pdf_writer.encrypt('ktb1199122')
 
         # Tạo file mới và ghi dữ liệu mã hóa vào file
         with open(output_file, 'wb') as encrypted_file:
