@@ -3,7 +3,7 @@ import re
 from django.contrib.auth.models import User
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(label='Tài Khỏan', max_length=30)
+    username = forms.CharField(label='Tài Khoản', max_length=30)
     email = forms.EmailField(label='Email')
     password1 = forms.CharField(label='Mật Khẩu', widget=forms.PasswordInput())
     password2 = forms.CharField(label='Nhập lại mật khẩu', widget=forms.PasswordInput())
