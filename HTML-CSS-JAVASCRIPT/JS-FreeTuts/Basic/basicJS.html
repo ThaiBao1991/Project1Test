@@ -1,29 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BasicJS</title>
+  <link rel="stylesheet" href="./static/bootstrap4.6/css/bootstrap.min.css">
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BasicJS</title>
-</head>
-<body>
-    <div class="myform">
-        <h1>Welcome to my Form</h1>
-     <form id="form">
-       <div class="input__container">
-         <label for="name">Name</label>
-           <!-- The 'required' prop ensures a filled field before submission -->
-         <input type="text" id="name" name="name" required />
-       </div>
-       <div class="input__container">
-         <label for="email">Email</label>
-         <input type="email" id="email" name="email" required />
-       </div>
-       <div class="input__container">
-         <label for="message">Message</label>
-         <textarea id="message" name="message" rows="4" required></textarea>
-       </div>
-       <button>Submit</button>
-     </form>
+    <link rel="stylesheet" href="./static/bootstrap4.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./static/style.css">
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h1>BASIC EXAMPLE ABOUT JAVASCRIPT</h1>
+          <div class="row">
+            <div class="col-6">
+              <h1>Welcome to my Form</h1>
+              <form id="form">
+                <div class="input__container">
+                  <label for="name">Name</label>
+                  <!-- The 'required' prop ensures a filled field before submission -->
+                  <input type="text" id="name" name="name" required />
+                </div>
+                <div class="input__container">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+                <div class="input__container">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button>Submit</button>
+              </form>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-4">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-2">
+                  1 of 3
+                </div>
+                <div class="col-md-auto">
+                  Variable width content
+                </div>
+                <div class="col col-lg-2">
+                  3 of 3
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  1 of 3
+                </div>
+                <div class="col-md-auto">
+                  Variable width content
+                </div>
+                <div class="col col-lg-2">
+                  3 of 3
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
     </div>
-</body>
-</html>
+
+  </body>
+
+  </html>
