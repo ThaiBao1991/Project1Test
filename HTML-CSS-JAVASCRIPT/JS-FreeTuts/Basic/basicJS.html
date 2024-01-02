@@ -26,23 +26,20 @@
         <div class="col-12">
           <h1>BASIC EXAMPLE ABOUT JAVASCRIPT</h1>
           <div class="row">
-            <div class="col-6">
-              <h1>Welcome to my Form</h1>
-              <form id="form">
-                <div class="input__container">
-                  <label for="name">Name</label>
-                  <!-- The 'required' prop ensures a filled field before submission -->
-                  <input type="text" id="name" name="name" required />
+            <div class=" class="col-4"">
+              <form name="Example1" onsubmit="return Example1()">
+                <h1>Example 1</h1>
+                <div class="form-group">
+                  <label for="a">Số A</label>
+                  <input type="text" class="form-control" id="NumberA" aria-describedby="NumberHelp"
+                    placeholder="Enter NumberA">
+                  <small id="NumberHelp" class="form-text text-muted">Enter Number Only.</small>
+                  <label for="kq">kết quả</label>
+                  <input type="text" class="form-control" id="result" aria-describedby="NumberHelp"
+                    placeholder="Enter NumberA">
+                  <small id="NumberHelp" 
                 </div>
-                <div class="input__container">
-                  <label for="email">Email</label>
-                  <input type="email" id="email" name="email" required />
-                </div>
-                <div class="input__container">
-                  <label for="message">Message</label>
-                  <textarea id="message" name="message" rows="4" required></textarea>
-                </div>
-                <button>Submit</button>
+                <button type="submit" class="btn btn-primary">Tính toán</button>
               </form>
             </div>
             <div class="col-4">
@@ -92,7 +89,22 @@
         
       </div>
     </div>
-
+    <script>
+      function Example1(){
+        var a = document.forms["Example1"]["NumberA"].value;
+        if(isNaN(a)){
+          if(isNaN(a)) {
+            document.forms["Example1"]["NumberA"].value="";
+            document.forms["Example1"]["NumberA"].placeholder = "Vui lòng nhập giá trị là số"
+          }
+        }
+        var b = Number.isInteger(a) && a > 0
+        if (b) {
+          console.log("Số đã cho là nguyên dương")
+          document.forms["Example1"]["Result"].value ="Số đã cho là số nguyên dương"
+        }
+      }
+    </script>
   </body>
 
   </html>
