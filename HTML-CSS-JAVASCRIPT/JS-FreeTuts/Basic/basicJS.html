@@ -296,12 +296,12 @@
 
       // Hàm Example4
       var thisform = document.forms["Example4"]
-      function Ex4createInput{
+      function Ex4createInput() {
         var num = thisform["NumberA"].value
       }
       function Example4(event) {
         event.preventDefault(); // Ngăn form gửi đi
-        
+
         thisform.querySelector("#result").value = ""
         var a = Number(thisform["NumberA"].value)
         var b = Number(thisform["NumberB"].value)
