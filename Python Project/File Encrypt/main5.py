@@ -6,6 +6,7 @@ from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
 import json
 
+# Đã ổn phần mã hóa file, mã hóa thư mục, nhưng chưa ok phần giải mã hóa thư mục
 class App:
     def __init__(self, root):
         self.root = root
