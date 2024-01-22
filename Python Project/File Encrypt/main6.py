@@ -5,8 +5,9 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
 import json
+import ast
 
-# Đã ổn phần mã hóa file, mã hóa thư mục, nhưng chưa ok phần giải mã hóa thư mục
+# Đã ổn hầu hết tính năng
 class App:
     def __init__(self, root):
         self.root = root
@@ -54,27 +55,68 @@ class App:
         with open(key_file_path, 'rb') as key_file:
             key = key_file.read()
         output_dir = os.path.dirname(file_name)
-        file_dict = self.load_file_dict(os.path.join(output_dir, 'data.txt'))
+        file_basename= os.path.basename(file_name)
+        print("bat dau chay lenh load_file_dict")
+        file_dict = self.load_file_dict(os.path.join(output_dir, 'data.txt'),file_basename)
         original_file_name = file_dict.get(os.path.basename(file_name))
         if original_file_name:
             self.decrypt_file_helper(file_name, key, output_dir, original_file_name)
         else:
             print("Không tìm thấy tên file cũ trong data.txt.")
 
-    def load_file_dict(self, file_path):
+    def load_file_dict(self, file_path, file_name):
         file_dict = {}
+        with open(file_path, 'r') as f:
+            data = f.read()
+            if '{' in data:  # Dạng từ điển
+                try:
+                    file_data = ast.literal_eval(data)
+                    if isinstance(file_data, dict):
+                        for key, value in file_data.items():
+                            if value == file_name:
+                                if value:
+                                    original_file_name = key
+                                    encrypted_file_name = value
+                                    file_dict[encrypted_file_name] = original_file_name
+                                else:
+                                    print(f"Không tìm thấy dữ liệu: {key}")
+                                break
+                except ValueError:
+                    print("Lỗi: Định dạng dữ liệu không hợp lệ.")
+            else:  # Dạng key-value đơn gi
+                try:
+                    lines = data.split('\n')
+                    for line in lines:
+                        if line.strip():
+                            key, value = line.split(':')
+                            original_file_name = key.strip()
+                            encrypted_file_name = value.strip()
+                            file_dict[encrypted_file_name] = original_file_name
+                except ValueError:
+                    print("Lỗi: Định dạng dữ liệu không hợp lệ.")
+                    
+                    
         with open(file_path, 'r') as f:
             lines = f.readlines()
             for line in lines:
                 line = line.strip()
                 if line:
-                    parts = line.split(":")
-                    if len(parts) == 2:
-                        original_file_name = parts[0].strip()
-                        encrypted_file_name = parts[1].strip()
-                        file_dict[encrypted_file_name] = original_file_name
-                    else:
-                        print(f"Lỗi định dạng dòng không hợp lệ: {line}")
+                    try:
+                        file_data = ast.literal_eval(line)
+                        if isinstance(file_data, dict):
+                            for key, value in file_data.items():
+                                if value == file_name:
+                                    if value:
+                                        original_file_name = key
+                                        encrypted_file_name = value
+                                        file_dict[encrypted_file_name] = original_file_name
+                                    else:
+                                        print(f"Lỗi định dạng dòng không hợp lệ: {key}")
+                                    break
+                        else:
+                            print(f"Lỗi: Dòng không phải là một dictionary: {line}")
+                    except (ValueError, SyntaxError):
+                        print(f"Lỗi: Không thể đánh giá (evaluate) dòng: {line}")
         return file_dict
 
     def decrypt_file_helper(self, file_name, key, output_dir, original_file_name):
@@ -104,12 +146,25 @@ class App:
         dir_name = filedialog.askdirectory()
         with open(os.path.join(dir_name, 'key.key'), 'rb') as key_file:
             key = key_file.read()
-        with open(os.path.join(dir_name, 'data.txt'), 'r') as f:
-            file_dict = dict(eval(f.read()))
-        for encrypted_file_name, original_file_name in file_dict.items():
-            encrypted_file_path = os.path.join(dir_name, encrypted_file_name)
-            if os.path.exists(encrypted_file_path):
-                self.decrypt_file_helper(encrypted_file_path, key, dir_name, original_file_name)
+        for root, dirs, files in os.walk(dir_name):
+            for file in files:
+                if file.endswith('.ecrb'):
+                    file_path = os.path.join(root, file)
+                    with open(os.path.join(dir_name, 'data.txt'), 'r') as f:
+                        file_dict = self.load_file_dict(os.path.join(dir_name, 'data.txt'),file)
+                        original_file_name = file_dict.get(os.path.basename(file))
+                        if original_file_name:
+                            print(file, original_file_name)
+                            self.decrypt_file_helper(file_path, key, dir_name, original_file_name)
+                        else:
+                            print("Không tìm thấy tên file cũ trong data.txt.")
+                    # for key, value in file_dict.items():
+                    #     if value == file:
+                    #         original_file_name = key
+                    #         if original_file_name:
+                    #             encrypted_file_path = os.path.join(root, file)
+                    #             self.decrypt_file_helper(encrypted_file_path, key, dir_name, original_file_name)
+                    
 
 root = tk.Tk()
 app = App(root)
