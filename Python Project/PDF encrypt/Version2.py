@@ -44,7 +44,7 @@ def decrypt_pdf(input_file, output_file, password):
 
 def encrypt_folder():
     folder_path = filedialog.askdirectory()
-    password = 'password'  # Mật khẩu để mã hóa
+    password = 'ktb@123321!'  # Mật khẩu để mã hóa
 
     # Lấy danh sách tất cả các file PDF trong thư mục
     pdf_files = glob.glob(os.path.join(folder_path, '*.pdf'))
@@ -60,7 +60,7 @@ def encrypt_folder():
 
 def decrypt_folder():
     folder_path = filedialog.askdirectory()
-    password = 'password'  # Mật khẩu để giải mã
+    password = 'ktb@123321!'  # Mật khẩu để giải mã
 
     # Lấy danh sách tất cả các file mã hóa (.ktb) trong thư mục
     encrypted_files = glob.glob(os.path.join(folder_path, '*.ktb'))
@@ -82,14 +82,14 @@ def open_file():
 def encrypt_file():
     input_file = input_entry.get()
     output_file = os.path.splitext(input_file)[0] + '.bkt'
-    password = 'password'  # Mật khẩu để mã hóa
+    password = 'ktb@123321!'  # Mật khẩu để mã hóa
     encrypt_pdf(input_file, output_file, password)
     result_label['text'] = 'File encrypted successfully: ' + output_file
 
 def decrypt_file():
     input_file = input_entry.get()
     output_file = os.path.splitext(input_file)[0] + '.pdf'
-    password = 'password'  # Mật khẩu để giải mã
+    password = 'ktb@123321!'  # Mật khẩu để giải mã
     decrypt_pdf(input_file, output_file, password)
     result_label['text'] = 'File decrypted successfully: ' + output_file
 
